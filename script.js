@@ -1335,25 +1335,169 @@ class DISCAnalyzer {
     updateProfileDisplay() {
         const { scores, dominantType, profile } = this.results;
 
-        document.getElementById('dominant-type').textContent = `${profile.emoji} ${profile.name}`;
-        document.getElementById('profile-description').textContent = profile.description;
+        // Update hero section
+        document.getElementById('profile-emoji').textContent = profile.emoji;
+        document.getElementById('dominant-type-hero').textContent = `${profile.emoji} ${profile.name}`;
+        document.getElementById('profile-tagline').textContent = profile.description;
+        document.getElementById('dominant-score').textContent = scores[dominantType] + '%';
 
-        Object.keys(scores).forEach(type => {
-            document.getElementById(`${type.toLowerCase()}-score`).textContent = scores[type] + '%';
-            document.getElementById(`${type.toLowerCase()}-score-bar`).style.width = scores[type] + '%';
+        // Update hero background color based on dominant type
+        const heroElement = document.querySelector('.profile-hero');
+        const profileColor = this.profiles[dominantType].color;
+        heroElement.style.background = `linear-gradient(135deg, ${profileColor} 0%, var(--accent-color) 100%)`;
+
+        // Setup tab functionality
+        this.setupProfileTabs();
+
+        // Populate strengths
+        this.populateStrengths(profile.strengths);
+
+        // Populate growth recommendations
+        this.populateGrowthRecommendations(profile.improvements, dominantType);
+
+        // Populate compatibility matrix
+        this.populateCompatibilityMatrix(dominantType);
+
+        // Populate detailed breakdown
+        this.populateDetailedBreakdown(scores);
+
+        // Populate personalized tips
+        this.populatePersonalizedTips(profile, dominantType);
+
+        // Setup action buttons
+        this.setupActionButtons();
+    }
+
+    setupProfileTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.dataset.tab;
+
+                // Remove active class from all tabs and panels
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabPanels.forEach(p => p.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding panel
+                btn.classList.add('active');
+                document.getElementById(`${targetTab}-panel`).classList.add('active');
+            });
+        });
+    }
+
+    populateStrengths(strengths) {
+        const strengthsGrid = document.getElementById('strengths-grid');
+        strengthsGrid.innerHTML = strengths.slice(0, 6).map((strength, index) => `
+            <div class="strength-card" style="animation-delay: ${index * 0.1}s">
+                <h5>💪 ${strength.split(' - ')[0]}</h5>
+                <p>${strength.split(' - ')[1] || strength}</p>
+            </div>
+        `).join('');
+    }
+
+    populateGrowthRecommendations(improvements, dominantType) {
+        const growthDiv = document.getElementById('growth-recommendations');
+        growthDiv.innerHTML = improvements.slice(0, 4).map((improvement, index) => `
+            <div class="growth-item" style="animation-delay: ${index * 0.1}s">
+                <h5>🎯 ${improvement.split(' - ')[0]}</h5>
+                <p>${improvement.split(' - ')[1] || improvement}</p>
+                <a href="#team" class="growth-action">Explorer en équipe</a>
+            </div>
+        `).join('');
+    }
+
+    populateCompatibilityMatrix(dominantType) {
+        const compatibilityDiv = document.getElementById('compatibility-matrix');
+        const compatibility = {
+            D: { D: 'medium', I: 'high', S: 'low', C: 'medium' },
+            I: { D: 'high', I: 'high', S: 'medium', C: 'low' },
+            S: { D: 'low', I: 'medium', S: 'high', C: 'high' },
+            C: { D: 'medium', I: 'low', S: 'high', C: 'medium' }
+        };
+
+        const typeInfo = {
+            D: { emoji: '🔥', name: 'Dominance' },
+            I: { emoji: '⭐', name: 'Influence' },
+            S: { emoji: '🤝', name: 'Stabilité' },
+            C: { emoji: '🔍', name: 'Conformité' }
+        };
+
+        compatibilityDiv.innerHTML = Object.keys(compatibility[dominantType]).map(type => {
+            const level = compatibility[dominantType][type];
+            const levelText = level === 'high' ? 'Excellente' : level === 'medium' ? 'Bonne' : 'À développer';
+            return `
+                <div class="compatibility-item">
+                    <div class="compatibility-emoji">${typeInfo[type].emoji}</div>
+                    <div class="compatibility-level compatibility-${level}">${levelText}</div>
+                    <div>${typeInfo[type].name}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    populateDetailedBreakdown(scores) {
+        const breakdownDiv = document.getElementById('dimension-breakdown');
+        const dimensions = [
+            { key: 'D', emoji: '🔥', name: 'Dominance', desc: 'Prise de décision et leadership' },
+            { key: 'I', emoji: '⭐', name: 'Influence', desc: 'Communication et persuasion' },
+            { key: 'S', emoji: '🤝', name: 'Stabilité', desc: 'Coopération et patience' },
+            { key: 'C', emoji: '🔍', name: 'Conformité', desc: 'Précision et analyse' }
+        ];
+
+        breakdownDiv.innerHTML = dimensions.map((dim, index) => `
+            <div class="dimension-item" style="animation-delay: ${index * 0.1}s">
+                <div class="dimension-emoji">${dim.emoji}</div>
+                <div class="dimension-score" style="color: var(--${dim.key.toLowerCase()}-color)">${scores[dim.key]}%</div>
+                <div class="dimension-label">${dim.name}</div>
+                <div class="dimension-description">${dim.desc}</div>
+            </div>
+        `).join('');
+    }
+
+    populatePersonalizedTips(profile, dominantType) {
+        const tipsDiv = document.getElementById('personal-tips');
+        const tips = [
+            { icon: '🎯', title: 'Conseil Principal', content: `En tant que profil ${profile.name}, concentrez-vous sur vos forces naturelles tout en développant votre flexibilité.` },
+            { icon: '🤝', title: 'En Équipe', content: 'Votre style complémente bien certains profils. Explorez la section équipe pour optimiser la collaboration.' },
+            { icon: '📈', title: 'Développement', content: 'Travaillez sur les dimensions moins développées pour un profil plus équilibré et polyvalent.' }
+        ];
+
+        tipsDiv.innerHTML = tips.map((tip, index) => `
+            <div class="tip-item" style="animation-delay: ${index * 0.1}s">
+                <h5>${tip.icon} ${tip.title}</h5>
+                <p>${tip.content}</p>
+            </div>
+        `).join('');
+    }
+
+    setupActionButtons() {
+        // Partage de profil
+        document.getElementById('share-profile-btn').addEventListener('click', () => {
+            this.shareProfile();
         });
 
-        const recommendationsDiv = document.getElementById('personal-recommendations');
-        recommendationsDiv.innerHTML = `
-            <div class="strengths-section">
-                <h4>💪 Vos Points Forts</h4>
-                <ul>${profile.strengths.map(strength => `<li>${strength}</li>`).join('')}</ul>
-            </div>
-            <div class="improvements-section">
-                <h4>🎯 Axes d'Amélioration</h4>
-                <ul>${profile.improvements.map(improvement => `<li>${improvement}</li>`).join('')}</ul>
-            </div>
-        `;
+        // Comparaison
+        document.getElementById('compare-btn').addEventListener('click', () => {
+            this.showPage('team');
+        });
+    }
+
+    shareProfile() {
+        if (navigator.share && this.results) {
+            navigator.share({
+                title: 'Mon Profil DISC',
+                text: `Je suis ${this.results.profile.name} (${this.results.dominantType}) avec un score de ${this.results.scores[this.results.dominantType]}%`,
+                url: window.location.href
+            });
+        } else {
+            // Fallback: copier dans le presse-papiers
+            const shareText = `Mon Profil DISC: ${this.results.profile.name} (${this.results.dominantType}) - ${this.results.scores[this.results.dominantType]}%`;
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Profil copié dans le presse-papiers!');
+            });
+        }
     }
 
     createProfileChart() {
