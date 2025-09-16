@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outil d'Analyse DISC - Profils Individuels et d'Équipe</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">DISC Analyzer</h1>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Accueil</a></li>
+                <li><a href="#test" class="nav-link">Test DISC</a></li>
+                <li><a href="#profile" class="nav-link">Mon Profil</a></li>
+                <li><a href="#team" class="nav-link">Équipe</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Page d'accueil -->
+        <section id="home" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2>Découvrez votre profil DISC</h2>
+                    <p class="hero-subtitle">Analysez votre style de comportement et celui de votre équipe pour améliorer la collaboration et la performance.</p>
+                    <div class="hero-badges">
+                        <span class="badge">✨ 32 questions interactives</span>
+                        <span class="badge">📊 Analyses visuelles interactives</span>
+                        <span class="badge">👥 Insights d'équipe complets</span>
+                    </div>
+
+                    <div class="disc-overview">
+                        <div class="disc-dimension">
+                            <div class="dimension-icon d-color">D</div>
+                            <h3>🔥 Dominance</h3>
+                            <p><strong>Direct, résolu, ferme, déterminé</strong><br>
+                            <em>Leaders naturels qui prennent des décisions rapides</em></p>
+                        </div>
+                        <div class="disc-dimension">
+                            <div class="dimension-icon i-color">I</div>
+                            <h3>⭐ Influence</h3>
+                            <p><strong>Sociable, communicant, optimiste, persuasif</strong><br>
+                            <em>Communicateurs inspirants qui motivent les équipes</em></p>
+                        </div>
+                        <div class="disc-dimension">
+                            <div class="dimension-icon s-color">S</div>
+                            <h3>🤝 Stabilité</h3>
+                            <p><strong>Patient, stable, loyal, coopératif</strong><br>
+                            <em>Piliers de l'équipe qui créent l'harmonie</em></p>
+                        </div>
+                        <div class="disc-dimension">
+                            <div class="dimension-icon c-color">C</div>
+                            <h3>🔍 Conformité</h3>
+                            <p><strong>Précis, analytique, consciencieux, systématique</strong><br>
+                            <em>Experts méticuleux garants de la qualité</em></p>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="start-test-btn" class="primary-btn">🚀 Commencer le Test DISC</button>
+                        <button id="demo-btn" class="demo-btn">🎬 Voir la Démo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page de test -->
+        <section id="test" class="page">
+            <div class="test-container">
+                <div class="test-header">
+                    <h2>📝 Test DISC - Évaluez votre profil</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-text">Question <span id="current-question">1</span> sur 32</p>
+                </div>
+
+                <div class="question-card" id="question-card">
+                    <h3 id="question-text"></h3>
+                    <div class="options-container" id="options-container">
+                        <!-- Options seront générées dynamiquement -->
+                    </div>
+                    <div class="test-navigation">
+                        <button id="prev-btn" class="secondary-btn" disabled>← Retour</button>
+                        <span class="auto-advance-hint">🚀 Avancement automatique activé</span>
+                        <button id="next-btn" class="primary-btn" disabled>Ignorer →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page profil individuel -->
+        <section id="profile" class="page">
+            <div class="profile-container">
+                <!-- Hero Section -->
+                <div class="profile-hero">
+                    <div class="profile-hero-content">
+                        <div class="profile-badge" id="profile-badge">
+                            <div class="profile-emoji" id="profile-emoji">🎭</div>
+                            <div class="profile-title">
+                                <h2 id="dominant-type-hero">Votre Profil</h2>
+                                <p class="profile-tagline" id="profile-tagline">Découvrez votre personnalité DISC</p>
+                            </div>
+                        </div>
+                        <div class="profile-score-highlight">
+                            <span class="score-label">Score Principal</span>
+                            <span class="score-main" id="dominant-score">0%</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button id="retake-test-btn" class="secondary-btn">🔄 Refaire le Test</button>
+                        <button id="share-profile-btn" class="primary-btn">📤 Partager</button>
+                        <button id="compare-btn" class="outline-btn">📊 Comparer</button>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="profile-main-grid">
+                    <!-- Enhanced Radar Chart -->
+                    <div class="profile-chart-section">
+                        <div class="section-header">
+                            <h3>📊 Votre Profil Visuel</h3>
+                            <p class="section-subtitle">Représentation interactive de vos dimensions DISC</p>
+                        </div>
+                        <div class="profile-chart" id="profile-chart">
+                            <canvas id="profile-radar-chart"></canvas>
+                        </div>
+                        <div class="chart-legend" id="chart-legend">
+                            <!-- Légende générée dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Insights & Recommendations -->
+                    <div class="profile-insights-section">
+                        <div class="insights-tabs">
+                            <button class="tab-btn active" data-tab="strengths">💪 Forces</button>
+                            <button class="tab-btn" data-tab="growth">🎯 Développement</button>
+                            <button class="tab-btn" data-tab="compatibility">🤝 Compatibilité</button>
+                        </div>
+
+                        <div class="insights-content">
+                            <div class="tab-panel active" id="strengths-panel">
+                                <h4>Vos Points Forts Principaux</h4>
+                                <div class="strengths-grid" id="strengths-grid">
+                                    <!-- Forces générées dynamiquement -->
+                                </div>
+                            </div>
+
+                            <div class="tab-panel" id="growth-panel">
+                                <h4>Axes de Développement</h4>
+                                <div class="growth-recommendations" id="growth-recommendations">
+                                    <!-- Recommandations générées dynamiquement -->
+                                </div>
+                            </div>
+
+                            <div class="tab-panel" id="compatibility-panel">
+                                <h4>Compatibilité avec d'autres Profils</h4>
+                                <div class="compatibility-matrix" id="compatibility-matrix">
+                                    <!-- Matrice de compatibilité générée dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown -->
+                <div class="profile-details-section">
+                    <h3>📋 Analyse Détaillée</h3>
+                    <div class="details-grid">
+                        <div class="dimension-breakdown" id="dimension-breakdown">
+                            <!-- Breakdown détaillé des dimensions -->
+                        </div>
+                        <div class="profile-tips">
+                            <h4>💡 Tips Personnalisés</h4>
+                            <div class="tips-container" id="personal-tips">
+                                <!-- Tips générés dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page équipe -->
+        <section id="team" class="page">
+            <div class="team-container">
+                <div class="team-header">
+                    <h2>👥 Analyse d'Équipe</h2>
+                    <button id="add-member-btn" class="primary-btn">➕ Ajouter un Membre</button>
+                </div>
+
+                <div class="team-content">
+                    <div class="team-overview">
+                        <div class="team-chart" id="team-chart">
+                            <h3>📈 Profil Moyen de l'Équipe</h3>
+                            <canvas id="team-radar-chart"></canvas>
+                        </div>
+                        <div class="team-composition">
+                            <h3>🥧 Composition de l'Équipe</h3>
+                            <canvas id="team-composition-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="team-members" id="team-members">
+                        <!-- Membres d'équipe seront affichés ici -->
+                    </div>
+
+                    <div class="team-insights">
+                        <div class="strengths">
+                            <h3>💪 Forces de l'Équipe</h3>
+                            <div id="team-strengths"></div>
+                        </div>
+                        <div class="weaknesses">
+                            <h3>🎯 Zones d'Amélioration</h3>
+                            <div id="team-weaknesses"></div>
+                        </div>
+                        <div class="team-recommendations">
+                            <h3>🚀 Recommandations d'Équipe</h3>
+                            <div id="team-recommendations-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
