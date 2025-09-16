@@ -1637,8 +1637,54 @@ class DISCAnalyzer {
             }
         });
 
+        // Créer la légende personnalisée
+        this.createChartLegend(originalScores, amplifiedScores);
+
         // Ajouter une note explicative sous le graphique
         this.addAmplificationNote('profile-chart');
+    }
+
+    createChartLegend(originalScores, amplifiedScores) {
+        const legendDiv = document.getElementById('chart-legend');
+        const dimensions = [
+            { key: 'D', emoji: '🔥', name: 'Dominance', color: 'var(--danger-color)' },
+            { key: 'I', emoji: '⭐', name: 'Influence', color: 'var(--warning-color)' },
+            { key: 'S', emoji: '🤝', name: 'Stabilité', color: 'var(--success-color)' },
+            { key: 'C', emoji: '🔍', name: 'Conformité', color: 'var(--primary-color)' }
+        ];
+
+        legendDiv.innerHTML = dimensions.map((dim, index) => {
+            const score = originalScores[dim.key];
+            const qualLevel = this.getQualitativeLevel(amplifiedScores[dim.key]);
+            return `
+                <div class="legend-item" style="animation-delay: ${index * 0.1}s">
+                    <div class="legend-indicator" style="background: ${dim.color}"></div>
+                    <div class="legend-content">
+                        <div class="legend-title">${dim.emoji} ${dim.name}</div>
+                        <div class="legend-score">${score}% - ${qualLevel.label}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    getQualitativeLevel(amplifiedScore) {
+        if (amplifiedScore >= 75) return {
+            label: 'Dominant',
+            description: 'Cette dimension est votre force principale'
+        };
+        if (amplifiedScore >= 50) return {
+            label: 'Développé',
+            description: 'Vous maîtrisez bien cette dimension'
+        };
+        if (amplifiedScore >= 25) return {
+            label: 'Modéré',
+            description: 'Potentiel de développement intéressant'
+        };
+        return {
+            label: 'Faible',
+            description: 'Zone d\'amélioration à explorer'
+        };
     }
 
     addAmplificationNote(containerId) {

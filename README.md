@@ -1,6 +1,6 @@
 # Outil d'Analyse DISC - Profils Individuels et d'Équipe
 
-## 🎯 Découvrez votre Profil DISC et Améliorez la Performance d'Équipe
+## Découvrez votre Profil DISC et Améliorez la Performance d'Équipe
 
 ### Qu'est-ce que DISC ?
 
@@ -11,9 +11,9 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 - **🤝 Stabilité** : Piliers de l'équipe qui créent l'harmonie et la sécurité
 - **🔍 Conformité** : Experts analytiques garantissant la qualité et la précision
 
-## 🚀 Fonctionnalités Clés
+##  Fonctionnalités Clés
 
-### 📝 Test DISC Interactif
+### Test DISC Interactif
 - **32 questions intelligentes** avec différents formats (choix multiples, glisser-déposer, curseurs, répartition budgétaire)
 - **Analyse en temps réel** avec progression visuelle
 - **Questions adaptatives** qui s'ajustent selon vos réponses précédentes
@@ -30,7 +30,7 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 - **Forces collectives** et zones d'amélioration identifiées
 - **Recommandations stratégiques** pour optimiser la performance d'équipe
 
-## 💼 Bénéfices pour Votre Équipe
+##  Bénéfices pour Votre Équipe
 
 ### Améliorer la Communication
 - **Comprendre les styles de communication** de chacun pour éviter les malentendus
@@ -52,7 +52,7 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 - **Accompagner les transitions** avec des stratégies personnalisées
 - **Maintenir la stabilité** pendant les périodes de transformation
 
-## 📋 Comment Utiliser l'Outil
+## Comment Utiliser l'Outil
 
 ### 1. Pour les Individus
 1. **Lancez le test DISC** depuis la page d'accueil
@@ -74,7 +74,7 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 3. **Adaptez votre leadership** selon les profils de vos collaborateurs
 4. **Développez des stratégies** de communication personnalisées
 
-## 🎨 Cas d'Usage Professionnel
+## Cas d'Usage Professionnel
 
 ### Management d'Équipe
 - **Recrutement** : Évaluer la compatibilité des candidats avec l'équipe existante
@@ -97,7 +97,7 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 - **Plan de développement** : Personnaliser les parcours de carrière
 - **Gestion des talents** : Identifier et développer les hauts potentiels
 
-## 🔧 Installation et Déploiement
+## Installation et Déploiement
 
 ### Utilisation Simple (Recommandé)
 1. **Ouvrez le fichier `index.html`** dans votre navigateur web
@@ -109,7 +109,7 @@ DISC est un modèle comportemental reconnu qui analyse les styles de communicati
 2. **Déployez sur un serveur web** (Apache, Nginx, etc.)
 3. **Ou utilisez une plateforme** comme GitHub Pages, Netlify, Vercel
 
-## 📊 Interprétation des Résultats
+## Interprétation des Résultats
 
 ### Scores DISC
 - **0-25%** : Faible présence du trait
@@ -125,7 +125,7 @@ Votre **profil principal** indique votre style naturel de comportement. Les autr
 - **Forces complémentaires** : Profils différents qui se renforcent
 - **Risques identifiés** : Déséquilibres pouvant créer des tensions
 
-## 💡 Conseils d'Utilisation
+## Conseils d'Utilisation
 
 ### Pour un Test Fiable
 - **Répondez spontanément** sans trop réfléchir
@@ -145,7 +145,7 @@ Votre **profil principal** indique votre style naturel de comportement. Les autr
 - **Définissez des actions concrètes** d'amélioration
 - **Formez les managers** à l'utilisation des profils DISC
 
-## 🔒 Confidentialité et Éthique
+## Confidentialité et Éthique
 
 - **Données locales** : Tous les résultats sont stockés uniquement dans votre navigateur
 - **Pas de transmission** : Aucune donnée n'est envoyée à des serveurs externes
@@ -154,6 +154,6 @@ Votre **profil principal** indique votre style naturel de comportement. Les autr
 
 ---
 
-**🎯 Prêt à découvrir votre profil DISC et booster la performance de votre équipe ?**
+** Prêt à découvrir votre profil DISC et booster la performance de votre équipe ?**
 
 Lancez-vous dans l'aventure de la connaissance de soi et de l'optimisation collective ! 🚀
